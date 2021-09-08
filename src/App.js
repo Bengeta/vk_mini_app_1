@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import bridge from '@vkontakte/vk-bridge';
 import {View, ScreenSpinner, AdaptivityProvider, AppRoot} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
@@ -58,7 +58,7 @@ class Button extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    setLightOn(event) {
+    setLightOn() {
         this.props.setLightOn({id});
         this.setState(prevState => ({
             turnOn: !prevState.turnOn
