@@ -55,7 +55,6 @@ class Button extends React.Component {
         this.state = {turnOn: props.turnOn};
         this.id = this.props.id
         this.setLightOn = this.setLightOn.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     setLightOn() {
@@ -77,9 +76,11 @@ class Button extends React.Component {
 
 function NumberList(props) {
     const numbers = props.numbers;
-    const listItems = numbers.map((number) =>
-        <Button id={number.id.toString()} setLightOn={props.setLightOn}/>
+    const listItems = Object.entries(numbers).map((number) => <Button id={number.key} setLightOn={props.setLightOn}/>
+    //const listItems = numbers.values.map((number) => <Button id={number.id.toString()} setLightOn={props.setLightOn}/>
+
     );
+
     return (
         <ul>
             {listItems}
