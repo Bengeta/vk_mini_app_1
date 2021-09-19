@@ -34,17 +34,17 @@ class App extends React.Component {
         setTimeout(() => {
             alert(this.state.isUsed)
             let i=0
-                setInterval(()=>{
-                    if (this.state.isUsed){
-                        if (this.numbers[i.toString()]) {
+            setInterval(()=>{
+                if (this.state.isUsed){
+                    if (this.numbers[i.toString()]) {
 
-                            bridge.send("VKWebAppFlashSetLevel", {"level": 1});
-                        } else {
-                            bridge.send("VKWebAppFlashSetLevel", {"level": 0});
-                        }
-                        i = (i+1) % 8;
+                        bridge.send("VKWebAppFlashSetLevel", {"level": 1});
+                    } else {
+                        bridge.send("VKWebAppFlashSetLevel", {"level": 0});
                     }
-                },1000)
+                    i = (i+1) % 8;
+                }
+            },1000)
         }, 1000);
 
     }
@@ -72,7 +72,7 @@ class App extends React.Component {
 
 
                 <button onClick={this.turnOnLight}>
-                    {this.state.lightOn ? "on" : "off"}
+                    {this.state.lightOn ? "Включить фонарик" : "Выключить фонарик"}
                 </button>
             </div>
         );
@@ -96,7 +96,8 @@ class Button extends React.Component {
     render() {
         return (
             <button onClick={this.setlhton}>
-                {this.state.turnon ? "on" : "off"}
+                { (parseInt(this.props.id)+parseInt(1)) +")"}
+                { + this.state.turnon ?  "on" : "off"}
             </button>
         );
     }
