@@ -27,12 +27,10 @@ class App extends React.Component {
     }
 
     turnOnLight() {
-        alert(this.state.isUsed)
         this.setState(prevState => ({
             lightOn: !prevState.lightOn,
             isUsed: !prevState.isUsed}));
         setTimeout(() => {
-            alert(this.state.isUsed)
             let i=0
             setInterval(()=>{
                 if (this.state.isUsed){
