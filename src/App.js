@@ -8,53 +8,71 @@ import {number} from "prop-types";
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {lightOn: false};
+        this.state = {lightOn: false, isUsed : false};
 
-        this.setLightOn = this.setLightOn.bind(this);
+        this.seon = this.seon.bind(this);
         this.turnOnLight = this.turnOnLight.bind(this);
     }
 
     numbers = {"0": false, "1": false, "2": false, "3": false, "4": false, "5": false, "6": false, "7": false}
 
-    isUsed = false;
 
-    setLightOn(id) {
-        this.numbers[id] = !this.numbers[id];
+
+    seon(id) {
+        if (!this.state.lightOn) {
+            this.setState();
+            this.numbers[id] = !this.numbers[id];
+        }
+        return this.state.lightOn
     }
 
     turnOnLight() {
-        while (this.isUsed)
-            for (let i = 0; i < this.numbers.length; i++) {
-                if (this.numbers[i]) {
-                    bridge.send("VKWebAppFlashSetLevel", {"level": 1});
-                    setTimeout(() => {
-                    }, 1000);
-                } else {
-                    bridge.send("VKWebAppFlashSetLevel", {"level": 0});
-                    setTimeout(() => {
-                    }, 1000);
-                }
-                i %= this.numbers.length;
-            }
+        alert(this.state.isUsed)
+        this.setState(prevState => ({
+            lightOn: !prevState.lightOn,
+            isUsed: !prevState.isUsed}));
+        setTimeout(() => {
+            alert(this.state.isUsed)
+            let i=0
+                setInterval(()=>{
+                    if (this.state.isUsed){
+                        if (this.numbers[i.toString()]) {
+
+                            //bridge.send("VKWebAppFlashSetLevel", {"level": 1});
+                        } else {
+                            //bridge.send("VKWebAppFlashSetLevel", {"level": 0});
+                        }
+                        i = (i+1) % 8;
+                    }
+                },1000)
+        }, 1000);
+
     }
 
     render() {
         return (
             <div>
                 {/*<NumberList numbers={this.numbers} setLightOn={this.setLightOn}/>*/}
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["1"]} id={"1"}>this.numbers["1"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["2"]} id={"2"}>this.numbers["2"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["3"]} id={"3"}>this.numbers["3"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["4"]} id={"4"}>this.numbers["4"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["5"]} id={"5"}>this.numbers["5"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["6"]} id={"6"}>this.numbers["6"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["7"]} id={"7"}>this.numbers["7"]</button>
-                <button setLightOn={this.setLightOn} turnOn={this.numbers["8"]} id={"8"}>this.numbers["8"]</button>
-
+                <Button setlighton={this.seon} turnon={this.numbers["0"]}
+                        id={"0"}>{this.numbers["0"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["1"]}
+                        id={"1"}>{this.numbers["1"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["2"]}
+                        id={"2"}>{this.numbers["2"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["3"]}
+                        id={"3"}>{this.numbers["3"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["4"]}
+                        id={"4"}>{this.numbers["4"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["5"]}
+                        id={"5"}>{this.numbers["5"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["6"]}
+                        id={"6"}>{this.numbers["6"] ? "on" : "off"}</Button>
+                <Button setlighton={this.seon} turnon={this.numbers["7"]}
+                        id={"7"}>{this.numbers["7"] ? "on" : "off"}</Button>
 
 
                 <button onClick={this.turnOnLight}>
-                    {this.state.turnOn ? "on" : "off"}
+                    {this.state.lightOn ? "on" : "off"}
                 </button>
             </div>
         );
@@ -64,39 +82,25 @@ class App extends React.Component {
 class Button extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {turnOn: props.turnOn};
-        this.id = this.props.id
-        this.setLightOn = this.setLightOn.bind(this);
+        this.state = {turnon: props.turnon};
+        this.setlhton = this.setlhton.bind(this);
     }
 
-    setLightOn() {
-        this.props.setLightOn({id});
-        this.setState(prevState => ({
-            turnOn: !prevState.turnOn
-        }));
+    setlhton() {
+        if(!this.props.setlighton(this.props.id))
+            this.setState(prevState => ({
+                turnon: !prevState.turnon
+            }));
     }
 
     render() {
         return (
-            <button onClick={this.setLightOn}>
-                {this.state.turnOn ? "on" : "off"}
+            <button onClick={this.setlhton}>
+                {this.state.turnon ? "on" : "off"}
             </button>
         );
     }
 }
 
-
-function NumberList(props) {
-    const numbers = props.numbers;
-    const listItems = Object.entries(numbers).map((number) => <Button turnOn={number.key} id={number.value} setLightOn={props.setLightOn}/>
-
-    );
-
-    return (
-        <ul>
-            {listItems}
-        </ul>
-    );
-}
 
 export default App;
