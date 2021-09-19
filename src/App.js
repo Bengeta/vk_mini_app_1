@@ -38,9 +38,9 @@ class App extends React.Component {
                     if (this.state.isUsed){
                         if (this.numbers[i.toString()]) {
 
-                            //bridge.send("VKWebAppFlashSetLevel", {"level": 1});
+                            bridge.send("VKWebAppFlashSetLevel", {"level": 1});
                         } else {
-                            //bridge.send("VKWebAppFlashSetLevel", {"level": 0});
+                            bridge.send("VKWebAppFlashSetLevel", {"level": 0});
                         }
                         i = (i+1) % 8;
                     }
