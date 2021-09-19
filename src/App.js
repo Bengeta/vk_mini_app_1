@@ -2,6 +2,7 @@ import React from 'react';
 import bridge from '@vkontakte/vk-bridge';
 import {View, ScreenSpinner, AdaptivityProvider, AppRoot} from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
+import {number} from "prop-types";
 
 
 class App extends React.Component {
@@ -40,8 +41,19 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <NumberList numbers={this.numbers} setLightOn={this.setLightOn()}/>
-                <button onClick={this.setLightOn}>
+                {/*<NumberList numbers={this.numbers} setLightOn={this.setLightOn}/>*/}
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["1"]} id={"1"}>this.numbers["1"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["2"]} id={"2"}>this.numbers["2"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["3"]} id={"3"}>this.numbers["3"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["4"]} id={"4"}>this.numbers["4"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["5"]} id={"5"}>this.numbers["5"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["6"]} id={"6"}>this.numbers["6"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["7"]} id={"7"}>this.numbers["7"]</button>
+                <button setLightOn={this.setLightOn} turnOn={this.numbers["8"]} id={"8"}>this.numbers["8"]</button>
+
+
+
+                <button onClick={this.turnOnLight}>
                     {this.state.turnOn ? "on" : "off"}
                 </button>
             </div>
@@ -76,8 +88,7 @@ class Button extends React.Component {
 
 function NumberList(props) {
     const numbers = props.numbers;
-    const listItems = Object.entries(numbers).map((number) => <Button id={number.key} setLightOn={props.setLightOn}/>
-    //const listItems = numbers.values.map((number) => <Button id={number.id.toString()} setLightOn={props.setLightOn}/>
+    const listItems = Object.entries(numbers).map((number) => <Button turnOn={number.key} id={number.value} setLightOn={props.setLightOn}/>
 
     );
 
